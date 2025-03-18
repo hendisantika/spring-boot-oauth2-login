@@ -2,6 +2,7 @@ package id.my.hendisantika.oauth2login;
 
 import id.my.hendisantika.oauth2login.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -9,6 +10,9 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Testcontainers
@@ -33,6 +37,20 @@ class SpringBootOauth2LoginApplicationTests {
     @BeforeEach
     void deleteAll() {
         userRepository.deleteAll();
+    }
+
+    @Test
+    void testPostgresIsUpAndRunning() {
+        assertTrue(postgresContainer.isCreated());
+        assertTrue(postgresContainer.isRunning());
+        assertTrue(postgresContainer.isHealthy());
+        assertTrue(userRepository.count() > 0);
+        assertTrue(userRepository.findByEmail("admin@gmail.com").isPresent());
+        assertTrue(userRepository.findByEmail("hendisantika@gmail.com").isPresent());
+        assertTrue(userRepository.findByEmail("unknown@gmail.com").isEmpty());
+        assertEquals("admin", userRepository.findByEmail("admin@gmail.com").get().getName());
+        assertEquals("hendisantika", userRepository.findByEmail("hendisantika@gmail.com").get().getName());
+        assertTrue(userRepository.findByEmail("unknown@gmail.com").isEmpty());
     }
 
 }
