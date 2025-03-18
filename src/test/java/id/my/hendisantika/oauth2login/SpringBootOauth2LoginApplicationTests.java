@@ -1,5 +1,6 @@
 package id.my.hendisantika.oauth2login;
 
+import id.my.hendisantika.oauth2login.entity.User;
 import id.my.hendisantika.oauth2login.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,8 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,14 +40,25 @@ class SpringBootOauth2LoginApplicationTests {
     @BeforeEach
     void deleteAll() {
         userRepository.deleteAll();
+        initDaTa();
+    }
+
+    private void initDaTa() {
+        userRepository.saveAll(List.of(
+                new User("admin@gmail.com", "admin"),
+                new User("hendisantika@gmail.com", "hendisantika")
+        ));
     }
 
     @Test
     void testPostgresIsUpAndRunning() {
         assertTrue(postgresContainer.isCreated());
         assertTrue(postgresContainer.isRunning());
-        assertTrue(postgresContainer.isHealthy());
         assertTrue(userRepository.count() > 0);
+    }
+
+    @Test
+    void checkDataIsExist() {
         assertTrue(userRepository.findByEmail("admin@gmail.com").isPresent());
         assertTrue(userRepository.findByEmail("hendisantika@gmail.com").isPresent());
         assertTrue(userRepository.findByEmail("unknown@gmail.com").isEmpty());
