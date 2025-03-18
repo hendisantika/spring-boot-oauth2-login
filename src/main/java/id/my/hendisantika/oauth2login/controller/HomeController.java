@@ -1,6 +1,7 @@
 package id.my.hendisantika.oauth2login.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -24,5 +25,11 @@ public class HomeController {
     @GetMapping("/dashboard")
     public String dashboard() {
         return "dashboard";
+    }
+
+    @GetMapping("/user-not-found")
+    public String userNotFound(Model model) {
+        model.addAttribute("message", "User not found in the database.");
+        return "user-not-found";
     }
 }
