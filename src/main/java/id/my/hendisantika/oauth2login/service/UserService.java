@@ -1,9 +1,13 @@
 package id.my.hendisantika.oauth2login.service;
 
+import id.my.hendisantika.oauth2login.entity.User;
 import id.my.hendisantika.oauth2login.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,4 +25,9 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
+    public boolean userExists(OAuth2User oAuth2User) {
+        String email = oAuth2User.getAttribute("email");
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.isPresent();
+    }
 }
