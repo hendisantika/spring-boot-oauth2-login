@@ -1,0 +1,22 @@
+spring:
+  application.name: spring-boot-oauth2-login
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: YOUR_CLIENT_ID
+            client-secret: YOUR_CLIENT_SECRET
+            scope:
+              - email
+              - profile
+  datasource:
+    url: jdbc:postgresql://localhost:5432/oauth2
+    username: yu71
+    password: 53cret
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
