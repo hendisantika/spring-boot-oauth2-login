@@ -5,11 +5,9 @@ with Thymeleaf (Java Template Engine). It includes OAuth2 login with Google.
 
 ## Features
 
-- Custom login page using JTE and Tailwind CSS
-- Traditional username/password authentication
-- OAuth2 authentication with Google and GitHub
+- Custom login page using Thymeleaf
+- OAuth2 authentication with Google
 - Protected dashboard page
-- User role display
 - Secure logout functionality
 - CSRF protection
 
@@ -18,26 +16,23 @@ with Thymeleaf (Java Template Engine). It includes OAuth2 login with Google.
 - Java 17 or later
 - Maven 3.9.9
 - Google Cloud account (for Google OAuth)
-- GitHub account (for GitHub OAuth)
 
 ## Quick Start
 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/danvega/spring-boot-oauth-demo.git
-cd spring-boot-oauth-demo
+git clone https://github.com/hendisantika/spring-boot-oauth2-login.git
+cd spring-boot-oauth2-login
 ```
 
-2. Configure OAuth credentials (see OAuth Setup sections below)
+2. Configure OAuth credentials (see OAuth2 Setup sections below)
 
 3. Set environment variables
 
 ```bash
 export GOOGLE_CLIENT_ID=your_google_client_id
 export GOOGLE_CLIENT_SECRET=your_google_client_secret
-export GITHUB_CLIENT_ID=your_github_client_id
-export GITHUB_CLIENT_SECRET=your_github_client_secret
 ```
 
 4. Run the application
@@ -47,13 +42,6 @@ mvn clean spring-boot:run
 ```
 
 5. Visit http://localhost:8080
-
-## Default User Credentials
-
-The application comes with a default user for testing:
-
-- Username: `admin`
-- Password: `admin123`
 
 ## Google OAuth2 Setup
 
@@ -84,23 +72,6 @@ The application comes with a default user for testing:
      http://localhost:8080/login/oauth2/code/google
      ```
    - Note your client ID and client secret
-
-## GitHub OAuth Setup
-
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-
-2. Click "New OAuth App"
-
-3. Fill in the application details:
-   ```
-   Application name: Your App Name
-   Homepage URL: http://localhost:8080
-   Authorization callback URL: http://localhost:8080/login/oauth2/code/github
-   ```
-
-4. Register the application
-
-5. Note your client ID and generate a client secret
 
 ## Configuration
 
@@ -146,34 +117,6 @@ src/
         login.jte             # Login page
         dashboard.jte         # Dashboard page
         home.jte              # Home page
-```
-
-## Key Dependencies
-
-```xml
-
-<dependencies>
-   <!-- Spring Boot Starters -->
-   <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-   </dependency>
-   <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-   </dependency>
-   <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-oauth2-client</artifactId>
-   </dependency>
-
-   <!-- JTE Template Engine -->
-   <dependency>
-      <groupId>gg.jte</groupId>
-      <artifactId>jte-spring-boot-starter</artifactId>
-      <version>3.1.9</version>
-   </dependency>
-</dependencies>
 ```
 
 ## Troubleshooting
