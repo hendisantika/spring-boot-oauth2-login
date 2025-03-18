@@ -130,6 +130,17 @@ src/
    - No trailing slashes
    - Correct protocol (http/https)
    - Correct port number
+   - http://localhost:8080/api/auth/callback
+   - Check the response
+      ```json
+      // 20250319062027
+      // http://localhost:8080/api/auth/callback
+      
+      {
+      "status": "success",
+      "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZW5kaXNhbnRpa2FAZ21haWwuY29tIiwiaWF0IjoxNzQyMzQwMDI2LCJleHAiOjE3NDIzNzYwMjZ9.9aGBdImCTm53Tl4xbUP8F4W3aZczSHCAFi8k0jG8dr4"
+      }
+      ```
 
 2. Authentication Errors
    - Clear browser cookies and cache
